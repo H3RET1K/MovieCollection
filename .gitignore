@@ -1,7 +1,6 @@
 *.class
 
 # Package Files #
-*.jar
 *.war
 
 # gwt caches and compiled units #
@@ -73,3 +72,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+war/WEB-INF/lib/gwt-servlet.jar
