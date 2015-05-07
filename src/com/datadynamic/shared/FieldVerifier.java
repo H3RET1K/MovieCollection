@@ -12,5 +12,14 @@ public class FieldVerifier {
 			return false;
 		}
 		return genre.length() > 1;
-	}	
+	}
+	public static String isValidCredentials(String username, int token) {
+		if(username.equals("")) {
+			return "bad username";
+		}
+		if(token == -1) {
+			return "no token given";
+		}
+		return "true";
+	}
 }

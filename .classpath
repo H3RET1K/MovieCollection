@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="conf"/>
-	<classpathentry kind="src" output="test-classes" path="test"/>
+	<classpathentry excluding="DB/" kind="src" path="conf"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
@@ -17,5 +16,18 @@
 	<classpathentry kind="lib" path="server-jars/javassist-3.19.0-GA.jar"/>
 	<classpathentry kind="lib" path="server-jars/slf4j-simple-1.7.12.jar"/>
 	<classpathentry kind="lib" path="server-jars/log4j-over-slf4j-1.7.12.jar"/>
+	<classpathentry kind="lib" path="server-jars/commons-codec-1.10-javadoc.jar"/>
+	<classpathentry kind="lib" path="server-jars/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="server-jars/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="server-jars/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="server-jars/fluent-hc-4.4.1.jar"/>
+	<classpathentry kind="lib" path="server-jars/googleauth-0.4.5.jar"/>
+	<classpathentry kind="lib" path="server-jars/httpclient-4.4.1.jar"/>
+	<classpathentry kind="lib" path="server-jars/httpclient-cache-4.4.1.jar"/>
+	<classpathentry kind="lib" path="server-jars/httpclient-win-4.4.1.jar"/>
+	<classpathentry kind="lib" path="server-jars/httpcore-4.4.1.jar"/>
+	<classpathentry kind="lib" path="server-jars/httpmime-4.4.1.jar"/>
+	<classpathentry kind="lib" path="server-jars/jna-4.1.0.jar"/>
+	<classpathentry kind="lib" path="server-jars/jna-platform-4.1.0.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

@@ -14,11 +14,25 @@
 	<servlet-mapping>
 	  <servlet-name>movieServlet</servlet-name>
 	  <url-pattern>/moviecollection/movie</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping>  
   
+	<servlet>
+	  <servlet-name>authenticationServlet</servlet-name>
+	  <servlet-class>com.datadynamic.server.AuthenticationServiceImpl</servlet-class>
+	</servlet>  
+  
+	<servlet-mapping>
+	  <servlet-name>authenticationServlet</servlet-name>
+	  <url-pattern>/moviecollection/authentication</url-pattern>
+	</servlet-mapping>  
+   
   	<!-- Default page to serve -->
 	<welcome-file-list>
-	  <welcome-file>MovieCollection.html</welcome-file>
+	  <welcome-file>MovieCollection.jsp</welcome-file>
 	</welcome-file-list>
+
+	<listener>
+	   <listener-class>com.datadynamic.server.Startup</listener-class>
+	</listener>
 
 </web-app>
