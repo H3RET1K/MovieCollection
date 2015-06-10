@@ -18,4 +18,13 @@ public class Labels {
 	public static final String REMOVE_MOVIE_ERROR_MSG = "Error";	
 	
 	public static final String LABEL_CONCAT = " -:- ";
-}
+	
+	public static final String ADD_USER_ERROR_TITLE = "Add User Error";
+	
+	public static final String ADD_USER_ERROR_MSG = "Error";
+	
+	public static final String RMOVE_USER_ERROR_TITLE = "Remove User Error";
+	
+	public static final String REMOVE_USER_ERROR_MSG = "Error";
+	
+	}

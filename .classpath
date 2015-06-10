@@ -2,32 +2,33 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="DB/" kind="src" path="conf"/>
-	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER/gwt-0.0.0"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/h2-1.4.187.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/HikariCP-2.3.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/slf4j-api-1.7.12.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/commons-dbutils-1.6-javadoc.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/commons-dbutils-1.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/javassist-3.19.0-GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/slf4j-simple-1.7.12.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/log4j-over-slf4j-1.7.12.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/commons-codec-1.10-javadoc.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/commons-codec-1.10.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/commons-codec-1.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/commons-logging-1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/fluent-hc-4.4.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/googleauth-0.4.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/httpclient-4.4.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/httpclient-cache-4.4.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/httpclient-win-4.4.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/httpcore-4.4.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/httpmime-4.4.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/jna-4.1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/jna-platform-4.1.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="server-jars/h2-1.4.187.jar"/>
-	<classpathentry kind="lib" path="server-jars/HikariCP-2.3.6.jar"/>
-	<classpathentry kind="lib" path="server-jars/slf4j-api-1.7.12.jar"/>
-	<classpathentry kind="lib" path="server-jars/commons-dbutils-1.6-javadoc.jar"/>
-	<classpathentry kind="lib" path="server-jars/commons-dbutils-1.6.jar"/>
-	<classpathentry kind="lib" path="server-jars/javassist-3.19.0-GA.jar"/>
-	<classpathentry kind="lib" path="server-jars/slf4j-simple-1.7.12.jar"/>
-	<classpathentry kind="lib" path="server-jars/log4j-over-slf4j-1.7.12.jar"/>
-	<classpathentry kind="lib" path="server-jars/commons-codec-1.10-javadoc.jar"/>
-	<classpathentry kind="lib" path="server-jars/commons-codec-1.10.jar"/>
-	<classpathentry kind="lib" path="server-jars/commons-codec-1.9.jar"/>
-	<classpathentry kind="lib" path="server-jars/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="server-jars/fluent-hc-4.4.1.jar"/>
-	<classpathentry kind="lib" path="server-jars/googleauth-0.4.5.jar"/>
-	<classpathentry kind="lib" path="server-jars/httpclient-4.4.1.jar"/>
-	<classpathentry kind="lib" path="server-jars/httpclient-cache-4.4.1.jar"/>
-	<classpathentry kind="lib" path="server-jars/httpclient-win-4.4.1.jar"/>
-	<classpathentry kind="lib" path="server-jars/httpcore-4.4.1.jar"/>
-	<classpathentry kind="lib" path="server-jars/httpmime-4.4.1.jar"/>
-	<classpathentry kind="lib" path="server-jars/jna-4.1.0.jar"/>
-	<classpathentry kind="lib" path="server-jars/jna-platform-4.1.0.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

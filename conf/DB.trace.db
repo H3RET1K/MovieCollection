@@ -1,0 +1,3 @@
+06-02 21:57:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "MOVIES" not found; SQL statement:
+select * from movies [42102-187]

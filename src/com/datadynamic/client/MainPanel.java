@@ -62,6 +62,17 @@ public class MainPanel extends Composite {
 		absolutePanel.add(htmlMovieCollectionTitle, 10, 10);
 		htmlMovieCollectionTitle.setSize("343px", "52px");
 		
+		
+		Button btnUsers = new Button("Users");
+		btnUsers.setText("Users");
+		btnUsers.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				@SuppressWarnings("unused")
+				UserPanel userPanel = new UserPanel();				
+			}
+		});
+		absolutePanel.add(btnUsers, 272, 10);
+		
 		Button btnRemove = new Button("Remove");
 		btnRemove.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -114,6 +125,8 @@ public class MainPanel extends Composite {
 	    });
 		
 		this.initWidget(absolutePanel);
+		
+	
 		
 		loadMovieData();
 	}
