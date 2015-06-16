@@ -3,7 +3,7 @@ package com.datadynamic.client;
 import java.util.ArrayList;
 
 import com.datadynamic.client.events.Events;
-import com.datadynamic.client.events.MovieCollectionEditedEvent;
+import com.datadynamic.client.events.UserGroupEditedEvent;
 import com.datadynamic.client.remoteservices.Services;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -33,7 +33,7 @@ public class UserPanel extends DialogBox {
 	private TextBox textBoxRole;
 	
 	public UserPanel() {
-		setSize("530px", "358px");
+		setSize("480px", "358px");
 		AbsolutePanel absolutePanel = new AbsolutePanel();		
 		absolutePanel.setSize("454px", "312px");
 				
@@ -77,8 +77,9 @@ public class UserPanel extends DialogBox {
 		
 		delete.setFieldUpdater(new FieldUpdater<User, String>() {
 			@Override
-			public void update (int index, User object, String value) { Window.alert("You clicked: " + index);
-				Services.movieService.removeUser(index, new AsyncCallback<ActionResponse> () {
+			public void update (int index, User object, String value) { 
+				//Window.alert("You clicked: " + object.getID());
+				Services.userService.removeUser(object.getID(), new AsyncCallback<ActionResponse> () {
 					@Override
 					public void onFailure(Throwable caught) {
 						ErrorDialogBox errBox = new ErrorDialogBox();
@@ -91,7 +92,7 @@ public class UserPanel extends DialogBox {
 							ErrorDialogBox errBox = new ErrorDialogBox();
 							errBox.setError(Labels.ADD_USER_ERROR_TITLE, Labels.ADD_USER_ERROR_MSG + Labels.LABEL_CONCAT + result.getReason());
 						} else {
-							Events.EVENT_BUS.fireEvent(new MovieCollectionEditedEvent());
+							Events.EVENT_BUS.fireEvent(new UserGroupEditedEvent());
 						}
 					} 
 				});	
@@ -102,7 +103,7 @@ public class UserPanel extends DialogBox {
 		btnAdd.setText("Add User");		
 		btnAdd.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {					
-				Services.movieService.addUser(textBoxUsername.getText(), textBoxRole.getText(), new AsyncCallback<ActionResponse> () {
+				Services.userService.addUser(textBoxUsername.getText(), textBoxRole.getText(), new AsyncCallback<ActionResponse> () {
 					@Override
 					public void onFailure(Throwable caught) {
 						ErrorDialogBox errBox = new ErrorDialogBox();
@@ -115,7 +116,7 @@ public class UserPanel extends DialogBox {
 							ErrorDialogBox errBox = new ErrorDialogBox();
 							errBox.setError(Labels.ADD_USER_ERROR_TITLE, Labels.ADD_USER_ERROR_MSG + Labels.LABEL_CONCAT + result.getReason());
 						} else {
-							Events.EVENT_BUS.fireEvent(new MovieCollectionEditedEvent());	
+							Events.EVENT_BUS.fireEvent(new UserGroupEditedEvent());	
 							textBoxUsername.setText("");
 							textBoxRole.setText("");
 						}
@@ -126,32 +127,13 @@ public class UserPanel extends DialogBox {
 		absolutePanel.add(btnAdd, 259, 24);
 		
 		
-		
-		
-		
-//		Button btnRemove = new Button("Remove");
-//		btnRemove.addClickHandler(new ClickHandler() {
-//			public void onClick(ClickEvent event) {
-//				Services.movieService.removeMovie(MainPanel.this.selectedMovieID, new AsyncCallback<ActionResponse> () {
-//					@Override
-//					public void onFailure(Throwable caught) {
-//						ErrorDialogBox errBox = new ErrorDialogBox();
-//						errBox.setNetworkError();
-//					}
-//
-//					@Override
-//					public void onSuccess(ActionResponse result) {		
-//						if(result.getSuccess() == false) {
-//							ErrorDialogBox errBox = new ErrorDialogBox();
-//							errBox.setError(Labels.REMOVE_MOVIE_ERROR_TITLE, Labels.REMOVE_MOVIE_ERROR_TITLE + Labels.LABEL_CONCAT + result.getReason());
-//						} else {						
-//							Events.EVENT_BUS.fireEvent(new MovieCollectionEditedEvent());
-//						}
-//					}
-//				});
-//			}
-//		});
-		
+		Button btnBack = new Button("Back");
+		btnBack.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				UserPanel.this.removeFromParent();
+			}
+		});
+		absolutePanel.add(btnBack, 407, 0);		
 		
 		
 		final SingleSelectionModel<User> selectionModel = new SingleSelectionModel<User>();
@@ -165,7 +147,7 @@ public class UserPanel extends DialogBox {
 			}
 		});
 		
-		Events.EVENT_BUS.addHandler(MovieCollectionEditedEvent.TYPE, new MovieCollectionEditedEvent.Handler() {
+		Events.EVENT_BUS.addHandler(UserGroupEditedEvent.TYPE, new UserGroupEditedEvent.Handler() {
 			@Override
 			public void onEvent() {
 				loadUserData();
@@ -188,6 +170,8 @@ public class UserPanel extends DialogBox {
 		
 		Label lblRole = new Label("Role:");
 		absolutePanel.add(lblRole, 162, 10);
+		
+		
 		this.setText("User Management:");
 		this.show();
 		this.center();
@@ -196,7 +180,7 @@ public class UserPanel extends DialogBox {
 	}
 		
 	public void loadUserData() {
-		Services.movieService.getUsers(new AsyncCallback<ArrayList<User>> () {
+		Services.userService.getUsers(new AsyncCallback<ArrayList<User>> () {
 			@Override
 			public void onFailure(Throwable caught) {
 				ErrorDialogBox errBox = new ErrorDialogBox();

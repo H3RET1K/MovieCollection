@@ -9,7 +9,7 @@ import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-import com.datadynamic.client.remoteservices.MovieService;
+import com.datadynamic.client.remoteservices.UserService;
 import com.datadynamic.server.utils.AuthenticationUtils;
 import com.datadynamic.server.utils.DB;
 import com.datadynamic.server.utils.ServerLog;
@@ -17,55 +17,54 @@ import com.datadynamic.shared.Labels;
 import com.datadynamic.shared.pojos.*;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-
 @SuppressWarnings("serial")
-public class MovieServiceImpl extends RemoteServiceServlet implements MovieService {	
+public class UserServiceImpl extends RemoteServiceServlet implements UserService {
 	
 	
 	@Override
-	public ArrayList<Movie> getMovieCollection() throws IllegalArgumentException {
+	public ArrayList<User> getUsers() throws IllegalArgumentException {
 		if(!AuthenticationUtils.IsAuthenticated(this.getThreadLocalRequest())) {
 			return null;
 		}
 		QueryRunner run = new QueryRunner();
-		ResultSetHandler<List<Movie>> h = new BeanListHandler<Movie>(Movie.class);
-		List<Movie> movies = null;
+		ResultSetHandler<List<User>> h = new BeanListHandler<User>(User.class);
+		List<User> users = null;
 		try {
-			movies = run.query(DB.getConnection(), "SELECT * FROM Movies", h);
+			users = run.query(DB.getConnection(), "SELECT * FROM Users", h);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			ServerLog.error(e.getMessage());
 		}
-		return new ArrayList<Movie>(movies);
+		return new ArrayList<User>(users);
 	}
-		
-
+	
+	
 	@Override
-	public ActionResponse removeMovie(long ID) {
+	public ActionResponse removeUser(long ID) {
 		if(!AuthenticationUtils.IsAuthenticated(this.getThreadLocalRequest())) {
 			return null;
-		}	
+		}
 		QueryRunner run = new QueryRunner();
 		try {
-			run.update(DB.getConnection(), "delete from MOVIES where ID = ?", ID);
+			run.update(DB.getConnection(), "delete from USERS where ID = ?", ID);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String logID = ServerLog.error(e.getMessage());
 			return new ActionResponse(false, Labels.DB_ERROR + Labels.LABEL_CONCAT + logID);
-		}		
+		}
 		return new ActionResponse();
-	}
+	}	
 	
-
+	
 	@Override
-	public ActionResponse addMovie(String name, String genre) {
+	public ActionResponse addUser(String username, String role){
 		if(!AuthenticationUtils.IsAuthenticated(this.getThreadLocalRequest())) {
 			return null;
 		}
 		QueryRunner run = new QueryRunner();
-		ResultSetHandler<Movie> h = new BeanHandler<Movie>(Movie.class);
-		try {						
-			run.insert(DB.getConnection(), "insert into MOVIES(name, genre) values (?, ?)", h, name, genre);
+		ResultSetHandler<User> h = new BeanHandler<User>(User.class);
+		try {
+			run.insert(DB.getConnection(), "insert into USERS(username, invalidattempts, role) values (?, ?, ?)", h, username, "0", role);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String logID = ServerLog.error(e.getMessage());
@@ -73,5 +72,5 @@ public class MovieServiceImpl extends RemoteServiceServlet implements MovieServi
 		}
 		return new ActionResponse();
 	}
-	
+
 }
