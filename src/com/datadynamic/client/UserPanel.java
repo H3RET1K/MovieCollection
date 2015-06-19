@@ -82,7 +82,7 @@ public class UserPanel extends DialogBox {
 				Services.userService.removeUser(object.getID(), new AsyncCallback<ActionResponse> () {
 					@Override
 					public void onFailure(Throwable caught) {
-						ErrorDialogBox errBox = new ErrorDialogBox();
+						ErrorDialogBox errBox = new ErrorDialogBox();					
 						errBox.setNetworkError();						
 					}
 
