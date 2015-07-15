@@ -8,18 +8,20 @@ public class User implements Serializable {
 	private long ID;
 	private String username;
 	private int invalidattempts;
-	private String role;	
+	private String role;
+	private int islocked;
 	
 	public User() {
 		
 	}
 	
-	public User(long ID, String username, int invalidattempts, String role) {
+	public User(long ID, String username, int invalidattempts, String role, int islocked) {
 		super();
 		this.ID = ID;
 		this.username = username;
 		this.invalidattempts = invalidattempts;
 		this.role = role;
+		this.islocked = islocked;
 	}
 	
 	public String getName() {
@@ -53,5 +55,12 @@ public class User implements Serializable {
 	public void setRole(String role){
 		this.role = role;
 	}
-
+	
+	public int getIsLocked() {
+		return islocked;
+	}
+	
+	public void setIsLocked(int IsLocked) {
+		islocked = IsLocked;
+	}
 }

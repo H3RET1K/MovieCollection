@@ -64,7 +64,7 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 		QueryRunner run = new QueryRunner();
 		ResultSetHandler<User> h = new BeanHandler<User>(User.class);
 		try {
-			run.insert(DB.getConnection(), "insert into USERS(username, invalidattempts, role) values (?, ?, ?)", h, username, "0", role);
+			run.insert(DB.getConnection(), "insert into USERS(username, invalidattempts, role, islocked) values (?, ?, ?, ?)", h, username, "0", role, "0");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String logID = ServerLog.error(e.getMessage());

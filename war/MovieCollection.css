@@ -15,10 +15,10 @@ h1 {
   font-size: 16pt;
 }
 
-/** Most GWT widgets already have a style name defined */
+/** Most GWT widgets already have a style name defined 
 .gwt-DialogBox {
   width: 550px;
-}
+}*/
 
 .dialogVPanel {
   margin: 5px;
@@ -31,4 +31,8 @@ h1 {
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
   margin: 15px 6px 6px;
+}
+
+.ButtonStyle button {
+ width: 65px;		
 }

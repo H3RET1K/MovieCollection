@@ -5,15 +5,20 @@ import java.util.ArrayList;
 import com.datadynamic.client.events.Events;
 import com.datadynamic.client.events.UserGroupEditedEvent;
 import com.datadynamic.client.remoteservices.Services;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ContextMenuEvent;
+import com.google.gwt.event.dom.client.ContextMenuHandler;
 import com.datadynamic.shared.Labels;
 import com.datadynamic.shared.pojos.*;
 import com.google.gwt.user.cellview.client.DataGrid;
@@ -24,6 +29,8 @@ import com.google.gwt.user.client.ui.PopupPanel.AnimationType;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.FieldUpdater;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 
 
 public class UserPanel extends DialogBox {
@@ -31,15 +38,16 @@ public class UserPanel extends DialogBox {
 	private long selectedUserID = -1;
 	private TextBox textBoxUsername;
 	private TextBox textBoxRole;
+	private PopupPanel userMenu;
 	
 	public UserPanel() {
-		setSize("480px", "358px");
+		setSize("541px", "358px");
 		AbsolutePanel absolutePanel = new AbsolutePanel();		
-		absolutePanel.setSize("454px", "312px");
+		absolutePanel.setSize("513px", "312px");
 				
 		dataGrid = new DataGrid<User>();
 		absolutePanel.add(dataGrid, 10, 74);
-		dataGrid.setSize("383px", "228px");
+		dataGrid.setSize("493px", "228px");
 		
 		TextColumn<User> nameColumn = new TextColumn<User>() {
 			@Override
@@ -63,7 +71,15 @@ public class UserPanel extends DialogBox {
 				return object.getRole().toString();
 			}
 		};
-		dataGrid.addColumn(roleColumn, "Role");		
+		dataGrid.addColumn(roleColumn, "Role");
+		
+//		TextColumn<User> lockedColumn = new TextColumn<User>() {
+//			@Override
+//			public String getValue(User object){
+//				return Integer.toString(object.getIsLocked());
+//			}
+//		};
+//		dataGrid.addColumn(lockedColumn, "Locked?");
 		
 		
 		ButtonCell deleteButton = new ButtonCell();
@@ -97,8 +113,29 @@ public class UserPanel extends DialogBox {
 					} 
 				});	
 			}
-		});		
+		});
 		
+	
+		
+		
+		
+		ButtonCell lockButton = new ButtonCell();
+		Column <User, String> status = new Column <User, String>(lockButton) {
+			@Override
+			public String getValue(User islocked) {
+				if(islocked.getIsLocked() == 1 ) { 
+					return "Unlock"; 
+				} else { 
+					return "Lock"; 
+					}
+			}
+		};		
+		status.setCellStyleNames("ButtonStyle");
+		dataGrid.addColumn(status, "Status");		
+		
+		
+		GoogleAuthenticator gAuth = new GoogleAuthenticator();
+		final GoogleAuthenticatorKey key = gAuth.createCredentials("Riley");
 		Button btnAdd = new Button("New button");
 		btnAdd.setText("Add User");		
 		btnAdd.addClickHandler(new ClickHandler() {
@@ -119,6 +156,7 @@ public class UserPanel extends DialogBox {
 							Events.EVENT_BUS.fireEvent(new UserGroupEditedEvent());	
 							textBoxUsername.setText("");
 							textBoxRole.setText("");
+							Window.alert("Your key: " + key.getKey());
 						}
 					} 
 				});				
@@ -133,7 +171,7 @@ public class UserPanel extends DialogBox {
 				UserPanel.this.removeFromParent();
 			}
 		});
-		absolutePanel.add(btnBack, 407, 0);		
+		absolutePanel.add(btnBack, 467, 0);		
 		
 		
 		final SingleSelectionModel<User> selectionModel = new SingleSelectionModel<User>();
@@ -147,13 +185,25 @@ public class UserPanel extends DialogBox {
 			}
 		});
 		
+		dataGrid.sinkEvents(Event.ONCONTEXTMENU);
+		dataGrid.addHandler(
+		     new ContextMenuHandler() {
+		    	 @Override
+		         public void onContextMenu(ContextMenuEvent event) {
+		             event.preventDefault();
+		             event.stopPropagation();
+		             userMenu.setPopupPosition(event.getNativeEvent().getClientX(),
+		                 event.getNativeEvent().getClientY());
+		             userMenu.show();
+		         }
+		     }, ContextMenuEvent.getType());
+		
 		Events.EVENT_BUS.addHandler(UserGroupEditedEvent.TYPE, new UserGroupEditedEvent.Handler() {
 			@Override
 			public void onEvent() {
 				loadUserData();
 			}
-	    });
-		
+	    });		
 		
 		this.setWidget(absolutePanel);		
 		
@@ -169,15 +219,17 @@ public class UserPanel extends DialogBox {
 		textBoxRole.setSize("73px", "18px");
 		
 		Label lblRole = new Label("Role:");
-		absolutePanel.add(lblRole, 162, 10);
+		absolutePanel.add(lblRole, 162, 10);			
 		
-		
-		this.setText("User Management:");
+		this.userMenu = new PopupPanel(true);
+	    this.userMenu.add(new Button ("My Context menu!"));
+	    this.userMenu.hide();
+		this.setText("User Management:");		
 		this.show();
-		this.center();
-		loadUserData();	
-	
+		this.center();		
+		loadUserData();		
 	}
+		
 		
 	public void loadUserData() {
 		Services.userService.getUsers(new AsyncCallback<ArrayList<User>> () {

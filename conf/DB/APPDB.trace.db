@@ -710,3 +710,18 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:E:/Developme
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:337)
 	... 46 more
+06-28 16:13:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM USERS 
+
+SP_COLUMNS USERS[*] "; SQL statement:
+SELECT * FROM USERS 
+
+sp_columns users [42000-187]
+06-28 16:13:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SP_COLUMNS[*] USERS "; expected "SELECT, SET, SAVEPOINT, SCRIPT, SHUTDOWN, SHOW, {"; SQL statement:
+sp_columns users [42001-187]
+06-28 16:17:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE USERS
+ISLOCKED[*] INT "; expected "., ADD, SET, RENAME, DROP, CHANGE, MODIFY, ALTER"; SQL statement:
+alter table users
+islocked int [42001-187]
